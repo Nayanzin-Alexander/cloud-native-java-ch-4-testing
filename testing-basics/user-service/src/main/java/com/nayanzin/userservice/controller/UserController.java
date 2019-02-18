@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
 import java.util.Optional;
 
-import static java.util.Objects.isNull;
-
 @RestController
 @RequestMapping("/uaa/v1")
 public class UserController {
@@ -28,24 +26,9 @@ public class UserController {
 
     @GetMapping("/me")
     public ResponseEntity<User> getMe(Principal principal) {
-
-        // old style
-
-        Principal principal1 = authService.getAuthenticatedUser(principal);
-
-        if (principal1 == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-
-        User user = userService.getUserByPrincipal(principal1);
-        return isNull(user) ? ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
-                : ResponseEntity.ok(user);
-
-/*
         return Optional.ofNullable(
                 authService.getAuthenticatedUser(principal))
                 .map(p -> ResponseEntity.ok(userService.getUserByPrincipal(p)))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
-                */
     }
 }
