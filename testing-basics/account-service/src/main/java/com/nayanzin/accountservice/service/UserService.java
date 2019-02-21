@@ -1,10 +1,13 @@
 package com.nayanzin.accountservice.service;
 
 import com.nayanzin.accountservice.entity.User;
+import com.nayanzin.accountservice.exeption.UserNotFoundError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.RequestEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -31,6 +34,12 @@ public class UserService {
 
     public User getAuthenticatedUser() {
         RequestEntity<Void> request = get(URI.create(userMeUri)).header(CONTENT_TYPE, APPLICATION_JSON_VALUE).build();
-        return restTemplate.exchange(request, User.class).getBody();
+        try {
+            return restTemplate.exchange(request, User.class).getBody();
+        } catch (HttpClientErrorException.NotFound notFound) {
+            throw new UserNotFoundError("UserService respond with 404 not found.", notFound);
+        } catch (HttpServerErrorException.InternalServerError internalServerError) {
+            throw new UserNotFoundError("UserService respond with 500 Internal Server Error.", internalServerError);
+        }
     }
 }

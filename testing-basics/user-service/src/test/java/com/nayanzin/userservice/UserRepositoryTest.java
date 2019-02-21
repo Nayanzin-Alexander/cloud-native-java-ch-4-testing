@@ -20,18 +20,18 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    /* Convenience class that suports useful subset of proper JPA EnitityManager along
+    /* Convenience class that supports useful subset of proper JPA EntityManager along
      * with some extra utility methods for testing. */
     @Autowired
     private TestEntityManager entityManager;
 
     @Before
     public void setUp() {
-        User user = new User(55L, "user1", "Jack0", "Frost0", "jfrost0@example.com");
+        User user = new User(55L, "username", "Jack0", "Frost0", "jfrost0@example.com");
         user.setCreatedAt(123450L);
         user.setLastModified(1234660L);
         user.setId(null);
-    //    this.entityManager.persist(user);
+        this.entityManager.persist(user);
     }
 
     @Test
@@ -40,11 +40,11 @@ public class UserRepositoryTest {
         assertThat(actual).isNotNull();
         assertThat(actual.getId()).isGreaterThanOrEqualTo(0L);
         assertThat(actual.getUsername()).isEqualTo("username");
-        assertThat(actual.getFirstName()).isEqualTo("first name");
-        assertThat(actual.getLastName()).isEqualTo("last name");
-        assertThat(actual.getEmail()).isEqualTo("email@email.com");
+        assertThat(actual.getFirstName()).isEqualTo("Jack0");
+        assertThat(actual.getLastName()).isEqualTo("Frost0");
+        assertThat(actual.getEmail()).isEqualTo("jfrost0@example.com");
         assertThat(actual.getCreatedAt()).isNotNull();
-        assertThat(actual.getLastModified()).isNull();
+        assertThat(actual.getLastModified()).isNotNull();
     }
 
     @Test

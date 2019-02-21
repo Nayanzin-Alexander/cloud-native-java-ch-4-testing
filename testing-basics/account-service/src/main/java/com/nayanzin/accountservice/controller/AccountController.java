@@ -1,6 +1,7 @@
 package com.nayanzin.accountservice.controller;
 
 import com.nayanzin.accountservice.entity.Account;
+import com.nayanzin.accountservice.exeption.AccountNotFoundError;
 import com.nayanzin.accountservice.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,10 +22,10 @@ public class AccountController {
     private final AccountService accountService;
 
     @GetMapping("/accounts")
-    public ResponseEntity<List<Account>> getUserAccounts() throws Exception {
+    public ResponseEntity<List<Account>> getUserAccounts() {
         return Optional.ofNullable(accountService.getUserAccounts())
                 .map(a -> new ResponseEntity<>(a, OK))
-                .orElseThrow(() -> new Exception("Accounts do not exist."));
+                .orElseThrow(() -> new AccountNotFoundError("Accounts do not exist."));
     }
 
 }
