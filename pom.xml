@@ -18,6 +18,7 @@
 
   <modules>
     <module>testing-basics</module>
+    <module>testing-microservice</module>
   </modules>
 
   <properties>

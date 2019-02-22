@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: account-microservice
+server:
+  port: 428080
