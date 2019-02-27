@@ -17,8 +17,8 @@
   </parent>
 
   <modules>
-    <module>testing-basics</module>
-    <module>testing-microservice</module>
+    <module>account-microservice</module>
+    <module>user-microservice</module>
   </modules>
 
   <properties>

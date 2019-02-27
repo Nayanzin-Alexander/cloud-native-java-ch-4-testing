@@ -1,5 +1,0 @@
-spring:
-  application:
-    name: user-microservice
-server:
-  port: 428081

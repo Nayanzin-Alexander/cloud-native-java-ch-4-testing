@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: user-microservice
+server:
+  port: 48080
