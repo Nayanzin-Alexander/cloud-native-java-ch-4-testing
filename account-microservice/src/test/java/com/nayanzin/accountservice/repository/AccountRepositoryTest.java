@@ -20,7 +20,7 @@ import static org.junit.Assert.assertThat;
 @DataJpaTest
 public class AccountRepositoryTest {
 
-    private static final String ACCOUNT_NUMBER = "123456789";
+    private static final String ACCOUNT_NUMBER = "123456700";
     private static final String NOT_EXISTENT_ACCOUNT_NUMBER = "987654321";
     private static final String USERNAME = "username";
 
